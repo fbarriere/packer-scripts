@@ -12,7 +12,8 @@ packer build -only=default template.json
 
 Build a variables JSON file, define the following variables:
 
-``̀
+``̀ 
+
 {
     "buildversion": "the-build-version",
     "cloud_token": "your-vagrant-cloud-token",
@@ -20,6 +21,7 @@ Build a variables JSON file, define the following variables:
     "base_path": "Where to put the generated box, on your local disk",
     "release_base_url": "URL of the released box (for boxes stored outside Vagrant cloud)"
 }
+
 `̀̀ `
 
 packer build -only=atlas -var-file=variables.json template.json
