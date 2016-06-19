@@ -62,6 +62,7 @@
         "default": {
           "scripts": [
             "../scripts/epel.sh",
+            "../scripts/compilation_packages.sh",
             "../scripts/virtualbox.sh",
             "../scripts/cleanup.sh"
           ]
@@ -69,6 +70,7 @@
         "atlas": {
           "scripts": [
             "../scripts/epel.sh",
+            "../scripts/compilation_packages.sh",
             "../scripts/virtualbox.sh",
             "../scripts/cleanup.sh"
           ]
