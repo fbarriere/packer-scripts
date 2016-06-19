@@ -1,0 +1,99 @@
+{
+  "variables": {
+    "buildversion": "test",
+    "cloud_token": "notoken",
+    "changes_list": "No change",
+    "base_path": ".",
+    "release_base_url": "."
+  },
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "name": "default",
+      "guest_os_type": "RedHat_64",
+      "headless": true,
+      "iso_url": "http://centos.crazyfrogs.org/7/isos/x86_64/CentOS-7-x86_64-NetInstall-1511.iso",
+      "iso_checksum": "99d305fa40ec9e28ef8450c3bcc45f85",
+      "iso_checksum_type": "md5",
+      "disk_size": 80000,
+      "http_directory": ".",
+      "boot_command": "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/install.ks<enter>",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "14400s",
+      "shutdown_command": "echo '/sbin/halt -h -p' > /tmp/shutdown.sh; echo 'vagrant'|sudo -S sh '/tmp/shutdown.sh'",
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "virtualbox_version_file": ".vbox_version",
+      "vboxmanage": [
+        [ "modifyvm", "{{.Name}}", "--memory", "1024" ],
+        [ "modifyvm", "{{.Name}}", "--cpus", "2" ]
+      ]
+    },
+    {
+      "type": "virtualbox-iso",
+      "name": "atlas",
+      "guest_os_type": "RedHat_64",
+      "headless": true,
+      "iso_url": "http://centos.crazyfrogs.org/7/isos/x86_64/CentOS-7-x86_64-NetInstall-1511.iso",
+      "iso_checksum": "99d305fa40ec9e28ef8450c3bcc45f85",
+      "iso_checksum_type": "md5",
+      "disk_size": 80000,
+      "http_directory": ".",
+      "boot_command": "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/install.ks<enter>",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "14400s",
+      "shutdown_command": "echo '/sbin/halt -h -p' > /tmp/shutdown.sh; echo 'vagrant'|sudo -S sh '/tmp/shutdown.sh'",
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "virtualbox_version_file": ".vbox_version",
+      "vboxmanage": [
+        [ "modifyvm", "{{.Name}}", "--memory", "1024" ],
+        [ "modifyvm", "{{.Name}}", "--cpus", "2" ]
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'",
+      "override": {
+        "default": {
+          "scripts": [
+            "../scripts/epel.sh",
+            "../scripts/ansible.sh",
+            "../scripts/virtualbox.sh",
+            "../scripts/cleanup.sh"
+          ]
+        },
+        "atlas": {
+          "scripts": [
+            "../scripts/epel.sh",
+            "../scripts/ansible.sh",
+            "../scripts/virtualbox.sh",
+            "../scripts/cleanup.sh"
+          ]
+        }        
+      }
+    }
+  ],
+  "post-processors": [
+  [
+    {
+      "type": "vagrant",
+      "output": "{{ user `base_path` }}/ansible_host_{{ user `buildversion` }}.box"
+    },
+    {
+      "type": "vagrant-cloud",
+      "only": ["atlas"],
+      "box_tag": "fbarriere/ansible_host_",
+      "access_token": "{{user `cloud_token`}}",
+      "version": "{{user `buildversion`}}",
+      "version_description": "{{ user `changes_list` }}",
+      "box_download_url": "{{ user `release_base_url` }}/ansible_host__{{ user `buildversion` }}.box"
+    }
+  ]
+  ]
+}
+
