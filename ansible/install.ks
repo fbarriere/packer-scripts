@@ -39,6 +39,7 @@ kexec-tools
 python-virtualenv
 libffi-devel
 openssl-devel
+wget
 
 %end
 

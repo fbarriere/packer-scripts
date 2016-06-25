@@ -82,16 +82,16 @@
   [
     {
       "type": "vagrant",
-      "output": "{{ user `base_path` }}/ansible_host_{{ user `buildversion` }}.box"
+      "output": "{{ user `base_path` }}/ansible-centos7_{{ user `buildversion` }}.box"
     },
     {
       "type": "vagrant-cloud",
       "only": ["atlas"],
-      "box_tag": "fbarriere/ansible_host_",
+      "box_tag": "fbarriere/ansible-centos7_",
       "access_token": "{{user `cloud_token`}}",
       "version": "{{user `buildversion`}}",
       "version_description": "{{ user `changes_list` }}",
-      "box_download_url": "{{ user `release_base_url` }}/ansible_host__{{ user `buildversion` }}.box"
+      "box_download_url": "{{ user `release_base_url` }}/ansible-centos7_{{ user `buildversion` }}.box"
     }
   ]
   ]
