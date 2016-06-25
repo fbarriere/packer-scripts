@@ -1,3 +1,5 @@
 /output-default/
 /packer_cache/
 /ansible_host*.box
+/variables.json
+/ansible-centos7_test.box
