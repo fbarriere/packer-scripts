@@ -87,7 +87,7 @@
     {
       "type": "vagrant-cloud",
       "only": ["atlas"],
-      "box_tag": "fbarriere/ansible-centos7_",
+      "box_tag": "fbarriere/ansible-centos7",
       "access_token": "{{user `cloud_token`}}",
       "version": "{{user `buildversion`}}",
       "version_description": "{{ user `changes_list` }}",
