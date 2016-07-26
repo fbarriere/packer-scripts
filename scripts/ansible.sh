@@ -17,6 +17,9 @@ do
 	echo "**********         Installing: pip"
 	/opt/ansible-${VERSION}/bin/easy_install pip                > $LOGFILE 2>&1
 	
+	echo "**********         Upgrading: setuptools"
+	/opt/ansible-${VERSION}/bin/pip install --upgrade setuptools==11.3 > $LOGFILE 2>&1
+	
 	echo "**********         Installing: markupsafe"
 	/opt/ansible-${VERSION}/bin/pip install markupsafe          > $LOGFILE 2>&1
 	
