@@ -4,6 +4,12 @@ VERSIONS="1.9.5 1.9.6 2.0.2.0 2.1.0.0"
 
 LOGDIR=/root
 
+echo "***** Installing extra packages"        | /usr/bin/tee -a $LOGFILE
+
+yum -y install redis                          | /usr/bin/tee -a $LOGFILE 2>&1
+yum -y install sshpass                        | /usr/bin/tee -a $LOGFILE 2>&1
+
+
 echo "***** Installing ansible versions"
 
 for VERSION in $VERSIONS
