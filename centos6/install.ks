@@ -129,6 +129,9 @@ gstreamer-plugins-base-devel
 gstreamer-plugins-good-devel
 expat-devel
 gd-devel
+libtiff-devel
+libungif-devel
+
 
 %end
 
