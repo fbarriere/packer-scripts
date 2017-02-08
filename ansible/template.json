@@ -62,6 +62,7 @@
         "default": {
           "scripts": [
             "../scripts/epel.sh",
+            "../scripts/python.sh",
             "../scripts/ansible.sh",
             "../scripts/virtualbox.sh",
             "../scripts/cleanup.sh"
@@ -70,6 +71,7 @@
         "atlas": {
           "scripts": [
             "../scripts/epel.sh",
+            "../scripts/python.sh",
             "../scripts/ansible.sh",
             "../scripts/virtualbox.sh",
             "../scripts/cleanup.sh"
