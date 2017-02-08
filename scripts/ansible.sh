@@ -1,5 +1,8 @@
 #!/bin/bash
 
+PYTHON_VERSION=2.7.12
+PYTHON=/opt/python$PYTHON_VERSION
+
 VERSIONS="1.9.6 2.0.2.0-1 2.1.3.0 2.1.4.0 2.2.0.0 2.2.1.0"
 
 LOGDIR=/root
@@ -18,7 +21,7 @@ do
 	[ -e $LOGFILE ] || /bin/touch $LOGFILE
 	
 	echo "********** Installing version: '${VERSION}'"
-	virtualenv /opt/ansible-${VERSION}                          > $LOGFILE 2>&1
+	$PYTHON/bin/virtualenv /opt/ansible-${VERSION}                          > $LOGFILE 2>&1
 	
 	echo "**********         Installing: pip"
 	/opt/ansible-${VERSION}/bin/easy_install pip                > $LOGFILE 2>&1
@@ -31,4 +34,7 @@ do
 	
 	echo "**********         Installing: ansible"
 	/opt/ansible-${VERSION}/bin/pip install ansible==${VERSION} > $LOGFILE 2>&1
+	
+	echo "**********         Installing: ansible-cmdb"
+	/opt/ansible-${VERSION}/bin/pip install ansible-cmdb
 done
