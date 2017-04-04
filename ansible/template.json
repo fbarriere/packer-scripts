@@ -22,7 +22,7 @@
       "ssh_password": "vagrant",
       "ssh_port": 22,
       "ssh_wait_timeout": "14400s",
-      "shutdown_command": "echo '/sbin/halt -h -p' > /tmp/shutdown.sh; echo 'vagrant'|sudo -S sh '/tmp/shutdown.sh'",
+      "shutdown_command": "echo {{ user `buildversion` }} > ~/.buildversion ; echo '/sbin/halt -h -p' > /tmp/shutdown.sh; echo 'vagrant'|sudo -S sh '/tmp/shutdown.sh'",
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
       "virtualbox_version_file": ".vbox_version",
       "vboxmanage": [
@@ -45,7 +45,7 @@
       "ssh_password": "vagrant",
       "ssh_port": 22,
       "ssh_wait_timeout": "14400s",
-      "shutdown_command": "echo '/sbin/halt -h -p' > /tmp/shutdown.sh; echo 'vagrant'|sudo -S sh '/tmp/shutdown.sh'",
+      "shutdown_command": "echo {{ user `buildversion` }} > ~/.buildversion ; echo '/sbin/halt -h -p' > /tmp/shutdown.sh; echo 'vagrant'|sudo -S sh '/tmp/shutdown.sh'",
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
       "virtualbox_version_file": ".vbox_version",
       "vboxmanage": [
@@ -61,19 +61,15 @@
       "override": {
         "default": {
           "scripts": [
-            "../scripts/epel.sh",
-            "../scripts/python.sh",
-            "../scripts/ansible.sh",
             "../scripts/virtualbox.sh",
+            "../scripts/ansible.sh",
             "../scripts/cleanup.sh"
           ]
         },
         "atlas": {
           "scripts": [
-            "../scripts/epel.sh",
-            "../scripts/python.sh",
-            "../scripts/ansible.sh",
             "../scripts/virtualbox.sh",
+            "../scripts/ansible.sh",
             "../scripts/cleanup.sh"
           ]
         }        
