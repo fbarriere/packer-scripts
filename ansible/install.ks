@@ -40,6 +40,7 @@ python-virtualenv
 libffi-devel
 openssl-devel
 wget
+krb5-workstation
 
 %end
 
@@ -47,7 +48,11 @@ wget
 
 %end
 
-%post --log=/root/kickstart-post.log
+#
+# Post install: install Vagrant
+#
+
+%post --log=/root/vagrant-install.log
 
 date > /etc/vagrant_box_build_time
 
@@ -67,6 +72,20 @@ curl -L https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant.
 chmod 0600 /home/vagrant/.ssh/authorized_keys
 chown -R vagrant:vagrant /home/vagrant/.ssh
 
+%end
+
+#
+# Install EPEL and Ansible extra packages (sshpass and redis)
+#
+
+%post --log=/root/epel-install.log
+
+/usr/bin/yum -y install epel-release
+
+/usr/bin/yum -y install sshpass
+/usr/bin/yum -y install redis
 
 %end
+
+
 
