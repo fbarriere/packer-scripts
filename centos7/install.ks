@@ -117,7 +117,7 @@ expat-devel
 gd-devel
 libtiff-devel
 libungif-devel
-
+redhat-lsb
 
 %end
 
