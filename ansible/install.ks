@@ -17,6 +17,9 @@ lang en_US.UTF-8
 network  --bootproto=dhcp --device=enp0s3 --ipv6=auto --activate
 network  --hostname=localhost.localdomain
 
+firewall --disabled
+selinux --disabled
+
 # Root password
 rootpw --iscrypted $6$EXXiZEv68RGWMuXF$85SQdRBab60EhQr4AB42m6cUtT.KAed8dnPprdeoY/zgE4/kbcTP945rDSGU92OABTpBgAqAKloXeUt03dFc1/
 # System services
