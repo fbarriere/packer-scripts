@@ -11,8 +11,9 @@ PYTHON_VERSION=$PYTHON_MAJOR.$PYTHON_MINOR
 
 PYTHON=/opt/python$PYTHON_VERSION
 
-VERSIONS="1.9.6 2.0.2.0 2.1.5.0 2.2.2.0"
+VERSIONS="1.9.6 2.0.2.0 2.1.6.0 2.2.3.0 2.3.0.0"
 
+ANSIBLE_PREREQ="markupsafe redis junit_xml"
 ANSIBLE_EXTRAS="ansible-lint ansible-review ansible-cmdb"
 
 #
@@ -80,12 +81,12 @@ do
 	
 	echo "**********         Upgrading: setuptools"                         | /usr/bin/tee -a $LOGFILE
 	/opt/ansible-${VERSION}/bin/pip install --upgrade setuptools==11.3      >> $LOGFILE
-	
-	echo "**********         Installing: markupsafe"                        | /usr/bin/tee -a $LOGFILE
-	/opt/ansible-${VERSION}/bin/pip install markupsafe                      >> $LOGFILE
-	
-	echo "**********         Installing: redis"                             | /usr/bin/tee -a $LOGFILE
-	/opt/ansible-${VERSION}/bin/pip install redis                           >> $LOGFILE
+
+	for PREREQ in $ANSIBLE_PREREQ
+	do
+		echo "**********         Installing: $PREREQ"                       | /usr/bin/tee -a $LOGFILE
+		/opt/ansible-${VERSION}/bin/pip install $PREREQ                     >> $LOGFILE
+	done
 	
 	echo "**********         Installing: ansible"                           | /usr/bin/tee -a $LOGFILE
 	/opt/ansible-${VERSION}/bin/pip install ansible==${VERSION}             >> $LOGFILE
