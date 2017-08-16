@@ -12,7 +12,7 @@
       "name": "default",
       "guest_os_type": "RedHat_64",
       "headless": true,
-      "iso_url": "http://centos.crazyfrogs.org/5.11/isos/x86_64/CentOS-5.11-x86_64-netinstall.iso",
+      "iso_url": "http://mirror.nsc.liu.se/centos-store/5.11/isos/x86_64/CentOS-5.11-x86_64-netinstall.iso",
       "iso_checksum": "f2087f9af0d50df05144a1f0d1c5b404",
       "iso_checksum_type": "md5",
       "disk_size": 80000,
@@ -35,7 +35,7 @@
       "name": "atlas",
       "guest_os_type": "RedHat_64",
       "headless": true,
-      "iso_url": "http://centos.crazyfrogs.org/5.11/isos/x86_64/CentOS-5.11-x86_64-netinstall.iso",
+      "iso_url": "http://mirror.nsc.liu.se/centos-store/5.11/isos/x86_64/CentOS-5.11-x86_64-netinstall.iso",
       "iso_checksum": "f2087f9af0d50df05144a1f0d1c5b404",
       "iso_checksum_type": "md5",
       "disk_size": 80000,
@@ -56,6 +56,31 @@
   ],
   "provisioners": [
     {
+        "type": "file",
+        "source": "../files/CollabNetSubversion-client-1.7.19-1.x86_64.rpm",
+        "destination": "/tmp/CollabNetSubversion-client-1.7.19-1.x86_64.rpm"
+    },
+    {
+        "type": "file",
+        "source": "../files/CollabNetSubversion-client-1.8.18-1.x86_64.rpm",
+        "destination": "/tmp/CollabNetSubversion-client-1.8.18-1.x86_64.rpm"
+    },
+    {
+        "type": "file",
+        "source": "../files/CollabNetSubversion-client-1.9.6-1.x86_64.rpm",
+        "destination": "/tmp/CollabNetSubversion-client-1.9.6-1.x86_64.rpm"
+    },
+    {
+        "type": "file",
+        "source": "../files/doxygen-1.7.6-rhel5.tar.gz",
+        "destination": "/tmp/doxygen-1.7.6-rhel5.tar.gz"
+    },
+    {
+        "type": "file",
+        "source": "../files/svn",
+        "destination": "/tmp/svn"
+    },
+    {
       "type": "shell",
       "execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'",
       "override": {
@@ -64,6 +89,7 @@
             "../scripts/epel.sh",
             "../scripts/compilation_packages.sh",
             "../scripts/virtualbox.sh",
+            "../scripts/svn_install.sh",
             "../scripts/cleanup.sh"
           ]
         },
@@ -72,6 +98,7 @@
             "../scripts/epel.sh",
             "../scripts/compilation_packages.sh",
             "../scripts/virtualbox.sh",
+            "../scripts/svn_install.sh",
             "../scripts/cleanup.sh"
           ]
         }        
