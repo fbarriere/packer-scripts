@@ -90,6 +90,7 @@
             "../scripts/compilation_packages.sh",
             "../scripts/virtualbox.sh",
             "../scripts/svn_install.sh",
+            "../scripts/doxygen.sh",
             "../scripts/cleanup.sh"
           ]
         },
@@ -99,6 +100,7 @@
             "../scripts/compilation_packages.sh",
             "../scripts/virtualbox.sh",
             "../scripts/svn_install.sh",
+            "../scripts/doxygen.sh",
             "../scripts/cleanup.sh"
           ]
         }        
