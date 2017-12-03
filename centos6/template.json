@@ -56,6 +56,31 @@
   ],
   "provisioners": [
     {
+        "type": "file",
+        "source": "../files/CollabNetSubversion-client-1.7.19-1.x86_64.rpm",
+        "destination": "/tmp/CollabNetSubversion-client-1.7.19-1.x86_64.rpm"
+    },
+    {
+        "type": "file",
+        "source": "../files/CollabNetSubversion-client-1.8.18-1.x86_64.rpm",
+        "destination": "/tmp/CollabNetSubversion-client-1.8.18-1.x86_64.rpm"
+    },
+    {
+        "type": "file",
+        "source": "../files/CollabNetSubversion-client-1.9.6-1.x86_64.rpm",
+        "destination": "/tmp/CollabNetSubversion-client-1.9.6-1.x86_64.rpm"
+    },
+    {
+        "type": "file",
+        "source": "../files/doxygen-1.7.6-rhel6.tar.gz",
+        "destination": "/tmp/doxygen-1.7.6-rhel6.tar.gz"
+    },
+    {
+        "type": "file",
+        "source": "../files/svn",
+        "destination": "/tmp/svn"
+    },
+    {
       "type": "shell",
       "execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'",
       "override": {
@@ -64,6 +89,8 @@
             "../scripts/epel.sh",
             "../scripts/compilation_packages.sh",
             "../scripts/virtualbox.sh",
+            "../scripts/svn_install.sh",
+            "../scripts/doxygen.sh",
             "../scripts/cleanup.sh"
           ]
         },
@@ -72,6 +99,8 @@
             "../scripts/epel.sh",
             "../scripts/compilation_packages.sh",
             "../scripts/virtualbox.sh",
+            "../scripts/svn_install.sh",
+            "../scripts/doxygen.sh",
             "../scripts/cleanup.sh"
           ]
         }        
