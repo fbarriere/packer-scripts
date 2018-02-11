@@ -1,4 +1,3 @@
-/packer_cache/
 /compile-centos5*.box
 /variables.json
 /output-default/

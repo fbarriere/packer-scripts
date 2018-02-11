@@ -17,7 +17,7 @@
       "iso_checksum_type": "md5",
       "disk_size": 80000,
       "http_directory": ".",
-      "boot_command": "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/install.ks<enter>",
+      "boot_command": "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ansible/install.ks<enter>",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
       "ssh_port": 22,
@@ -40,7 +40,7 @@
       "iso_checksum_type": "md5",
       "disk_size": 80000,
       "http_directory": ".",
-      "boot_command": "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/install.ks<enter>",
+      "boot_command": "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ansible/install.ks<enter>",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
       "ssh_port": 22,
@@ -61,16 +61,16 @@
       "override": {
         "default": {
           "scripts": [
-            "../scripts/virtualbox.sh",
-            "../scripts/ansible.sh",
-            "../scripts/cleanup.sh"
+            "scripts/virtualbox.sh",
+            "scripts/ansible.sh",
+            "scripts/cleanup.sh"
           ]
         },
         "atlas": {
           "scripts": [
-            "../scripts/virtualbox.sh",
-            "../scripts/ansible.sh",
-            "../scripts/cleanup.sh"
+            "scripts/virtualbox.sh",
+            "scripts/ansible.sh",
+            "scripts/cleanup.sh"
           ]
         }        
       }

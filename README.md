@@ -4,9 +4,11 @@
 Packer templates and scripts to build CentOS-5 and CentOS-6 hosts for
 compilation. Contains most devel packages...
 
+https://app.vagrantup.com/boxes/search
+
 # Local build:
 
-packer build -only=default template.json
+packer build -only=default centos6/template.json
 
 # Released build:
 
@@ -24,5 +26,9 @@ Build a variables JSON file, define the following variables:
 
 `̀̀ `
 
-packer build -only=atlas -var-file=variables.json template.json
+packer build -only=atlas -var-file=centos6/variables.json centos6/template.json
 
+
+# Docker build:
+
+docker build -t <name> -f centos<version>/Dockerfile .

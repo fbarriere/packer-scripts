@@ -17,7 +17,7 @@
       "iso_checksum_type": "md5",
       "disk_size": 80000,
       "http_directory": ".",
-      "boot_command": "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/install.ks<enter>",
+      "boot_command": "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos6/install.ks<enter>",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
       "ssh_port": 22,
@@ -40,7 +40,7 @@
       "iso_checksum_type": "md5",
       "disk_size": 80000,
       "http_directory": ".",
-      "boot_command": "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/install.ks<enter>",
+      "boot_command": "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos6/install.ks<enter>",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
       "ssh_port": 22,
@@ -57,27 +57,27 @@
   "provisioners": [
     {
         "type": "file",
-        "source": "../files/CollabNetSubversion-client-1.7.19-1.x86_64.rpm",
+        "source": "files/CollabNetSubversion-client-1.7.19-1.x86_64.rpm",
         "destination": "/tmp/CollabNetSubversion-client-1.7.19-1.x86_64.rpm"
     },
     {
         "type": "file",
-        "source": "../files/CollabNetSubversion-client-1.8.18-1.x86_64.rpm",
+        "source": "files/CollabNetSubversion-client-1.8.18-1.x86_64.rpm",
         "destination": "/tmp/CollabNetSubversion-client-1.8.18-1.x86_64.rpm"
     },
     {
         "type": "file",
-        "source": "../files/CollabNetSubversion-client-1.9.6-1.x86_64.rpm",
+        "source": "files/CollabNetSubversion-client-1.9.6-1.x86_64.rpm",
         "destination": "/tmp/CollabNetSubversion-client-1.9.6-1.x86_64.rpm"
     },
     {
         "type": "file",
-        "source": "../files/doxygen-1.7.6-rhel6.tar.gz",
+        "source": "files/doxygen-1.7.6-rhel6.tar.gz",
         "destination": "/tmp/doxygen-1.7.6-rhel6.tar.gz"
     },
     {
         "type": "file",
-        "source": "../files/svn",
+        "source": "files/svn",
         "destination": "/tmp/svn"
     },
     {
@@ -86,22 +86,22 @@
       "override": {
         "default": {
           "scripts": [
-            "../scripts/epel.sh",
-            "../scripts/compilation_packages.sh",
-            "../scripts/virtualbox.sh",
-            "../scripts/svn_install.sh",
-            "../scripts/doxygen.sh",
-            "../scripts/cleanup.sh"
+            "scripts/epel.sh",
+            "scripts/compilation_packages.sh",
+            "scripts/virtualbox.sh",
+            "scripts/svn_install.sh",
+            "scripts/doxygen.sh",
+            "scripts/cleanup.sh"
           ]
         },
         "atlas": {
           "scripts": [
-            "../scripts/epel.sh",
-            "../scripts/compilation_packages.sh",
-            "../scripts/virtualbox.sh",
-            "../scripts/svn_install.sh",
-            "../scripts/doxygen.sh",
-            "../scripts/cleanup.sh"
+            "scripts/epel.sh",
+            "scripts/compilation_packages.sh",
+            "scripts/virtualbox.sh",
+            "scripts/svn_install.sh",
+            "scripts/doxygen.sh",
+            "scripts/cleanup.sh"
           ]
         }        
       }
