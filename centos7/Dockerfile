@@ -1,4 +1,4 @@
-FROM centos:7.4
+FROM centos:7
 
 MAINTAINER Francois Barriere <francois.barriere@microchip.com>
 
