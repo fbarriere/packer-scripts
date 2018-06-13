@@ -6,12 +6,12 @@ LOGFILE=${LOGDIR}/python_install.log
 
 # Versions section
 PYTHON_MAJOR=2.7
-PYTHON_MINOR=13
+PYTHON_MINOR=15
 PYTHON_VERSION=$PYTHON_MAJOR.$PYTHON_MINOR
 
 PYTHON=/opt/python$PYTHON_VERSION
 
-VERSIONS="1.9.6 2.0.2.0 2.1.6.0 2.2.3.0 2.3.0.0"
+VERSIONS="1.9.6 2.0.2.0 2.1.6.0 2.2.3.0 2.3.3.0 2.4.4.0 2.5.4"
 
 ANSIBLE_PREREQ="markupsafe redis junit_xml"
 ANSIBLE_EXTRAS="ansible-lint ansible-review ansible-cmdb"
