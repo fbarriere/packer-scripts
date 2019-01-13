@@ -1,0 +1,112 @@
+{
+  "variables": {
+    "buildversion": "test",
+    "cloud_token": "notoken",
+    "changes_list": "No change",
+    "base_path": ".",
+    "release_base_url": "."
+  },
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "name": "default",
+      "guest_os_type": "RedHat_64",
+      "headless": true,
+      "iso_url": "http://centos.crazyfrogs.org/6.10/isos/x86_64/CentOS-6.10-x86_64-netinstall.iso",
+      "iso_checksum": "36b9b5d36d3a61b541e64b01eb9734667235615e",
+      "iso_checksum_type": "sha1",
+      "disk_size": 8000,
+      "http_directory": ".",
+      "boot_command": "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/syncserver/install.ks<enter>",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "14400s",
+      "shutdown_command": "echo '/sbin/halt -h -p' > /tmp/shutdown.sh; echo 'vagrant'|sudo -S sh '/tmp/shutdown.sh'",
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "virtualbox_version_file": ".vbox_version",
+      "vboxmanage": [
+        [ "createmedium", "disk", "--filename", "extra-disks/designsync.vdi", "--size", "10000" ],
+        [ "createmedium", "disk", "--filename", "extra-disks/vault.vdi", "--size", "60000" ],
+        [ "modifyvm", "{{.Name}}", "--memory", "1024" ],
+        [ "modifyvm", "{{.Name}}", "--cpus", "2" ],
+        ["storageattach", "{{.Name}}", "--storagectl", "IDE Controller", "--port", "1", "--device", "0", "--type", "hdd", "--medium", "extra-disks/designsync.vdi"],
+        ["storageattach", "{{.Name}}", "--storagectl", "IDE Controller", "--port", "1", "--device", "1", "--type", "hdd", "--medium", "extra-disks/vault.vdi"]
+      ]
+    },
+    {
+      "type": "virtualbox-iso",
+      "name": "atlas",
+      "guest_os_type": "RedHat_64",
+      "headless": true,
+      "iso_url": "http://centos.crazyfrogs.org/6.10/isos/x86_64/CentOS-6.10-x86_64-netinstall.iso",
+      "iso_checksum": "36b9b5d36d3a61b541e64b01eb9734667235615e",
+      "iso_checksum_type": "sha1",
+      "disk_size": 8000,
+      "http_directory": ".",
+      "boot_command": "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/syncserver/install.ks<enter>",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "14400s",
+      "shutdown_command": "echo '/sbin/halt -h -p' > /tmp/shutdown.sh; echo 'vagrant'|sudo -S sh '/tmp/shutdown.sh'",
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "virtualbox_version_file": ".vbox_version",
+      "vboxmanage": [
+        [ "createmedium", "disk", "--filename", "extra-disks/designsync.vdi", "--size", "10000" ],
+        [ "createmedium", "disk", "--filename", "extra-disks/vault.vdi", "--size", "60000" ],
+        [ "modifyvm", "{{.Name}}", "--memory", "1024" ],
+        [ "modifyvm", "{{.Name}}", "--cpus", "2" ],
+        ["storageattach", "{{.Name}}", "--storagectl", "IDE Controller", "--port", "1", "--device", "0", "--type", "hdd", "--medium", "extra-disks/designsync.vdi"],
+        ["storageattach", "{{.Name}}", "--storagectl", "IDE Controller", "--port", "1", "--device", "1", "--type", "hdd", "--medium", "extra-disks/vault.vdi"]
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+        "type": "file",
+        "source": "files/designsyncroot.tar.gz",
+        "destination": "/tmp/designsyncroot.tar.gz"
+    },
+    {
+      "type": "shell",
+      "execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'",
+      "override": {
+        "default": {
+          "scripts": [
+            "scripts/epel.sh",
+            "scripts/virtualbox.sh",
+            "scripts/syncmounts.sh",
+            "scripts/cleanup.sh"
+          ]
+        },
+        "atlas": {
+          "scripts": [
+            "scripts/epel.sh",
+            "scripts/virtualbox.sh",
+            "scripts/syncmounts.sh",
+            "scripts/cleanup.sh"
+          ]
+        }        
+      }
+    }
+  ],
+  "post-processors": [
+  [
+    {
+      "type": "vagrant",
+      "output": "{{ user `base_path` }}/dessync-centos6_{{ user `buildversion` }}.box"
+    },
+    {
+      "type": "vagrant-cloud",
+      "only": ["atlas"],
+      "box_tag": "fbarriere/dessync-centos6",
+      "access_token": "{{user `cloud_token`}}",
+      "version": "{{user `buildversion`}}",
+      "version_description": "{{ user `changes_list` }}",
+      "box_download_url": "{{ user `release_base_url` }}/dessync-centos6_{{ user `buildversion` }}.box"
+    }
+  ]
+  ]
+}
+
