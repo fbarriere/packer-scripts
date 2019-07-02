@@ -11,13 +11,13 @@ PYTHON_VERSION=$PYTHON_MAJOR.$PYTHON_MINOR
 
 PYTHON=/opt/python$PYTHON_VERSION
 
-VERSIONS="1.9.6 2.0.2.0 2.1.6.0 2.2.3.0 2.3.3.0 2.4.4.0 2.5.4"
+VERSIONS="2.4.6-1 2.5.15 2.6.17 2.7.11 2.8.1"
 
 ANSIBLE_PREREQ="markupsafe redis junit_xml"
 ANSIBLE_EXTRAS="ansible-lint ansible-review ansible-cmdb"
 
 #
-#Â Python install:
+# Python install:
 #
 
 echo "*** Installing Python $PYTHON_VERSION "
@@ -107,4 +107,70 @@ echo "***** Enable redis"
 /bin/systemctl daemon-reload
 /bin/systemctl enable redis.service
 
+#
+# Python-3 section: just install a Python-3 with pipenv.
+# The project dependencies will be then installed at run time with pipenv.
+#
+
+# Versions section
+PYTHON_MAJOR=3.7
+PYTHON_MINOR=3
+PYTHON_VERSION=$PYTHON_MAJOR.$PYTHON_MINOR
+
+PYTHON=/opt/python$PYTHON_MAJOR
+
+#
+# Python install:
+#
+
+echo "*** Installing Python $PYTHON_VERSION "
+
+TMP_PATH=~/tmp_install_python
+INSTALL_PATH=/opt/python$PYTHON_MAJOR
+
+mkdir $TMP_PATH && cd $TMP_PATH
+
+# Download and extract Python and Setuptools
+
+echo "****** Downloading files."
+
+wget --no-check-certificate https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tgz  > $LOGFILE 2>&1
+
+echo "****** Extracting Python"
+
+tar -zxf Python-$PYTHON_VERSION.tgz
+
+echo "****** Building Python"
+
+# Compile Python
+cd $TMP_PATH/Python-$PYTHON_VERSION 
+./configure --prefix=$INSTALL_PATH   >> $LOGFILE 2>&1
+make                                 >> $LOGFILE 2>&1
+make install                         >> $LOGFILE 2>&1
+export PATH="$INSTALL_PATH:$PATH"
+
+# Update pip and install pipenv
+
+echo "****** Updating pip"
+${INSTALL_PATH}/bin/pip3 install --upgrade pip >> $LOGFILE 2>&1
+
+echo "****** Installing pipenv"
+${INSTALL_PATH}/bin/pip3 install pipenv >> $LOGFILE 2>&1
+
+# Create a virtualenv for Ansible with dependencies andd friends
+
+echo "****** Installing Ansible and friends (pipenv)"
+
+PIPENV_INSTALLS="redis junit_xml ansible ansible-lint ansible-review ansible-cmdb"
+
+mkdir /ansible
+cd /ansible
+
+for INSTALL in $PIPENV_INSTALLS
+do
+	echo "********* Installing: $INSTALL"
+	${INSTALL_PATH}/bin/pipenv install $INSTALL  >> $LOGFILE 2>&1
+done
+
+/bin/rm -rf /ansible
 

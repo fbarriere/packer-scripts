@@ -52,7 +52,7 @@ krb5-workstation
 %end
 
 #
-#Â Post install: install Vagrant
+# Post install: install Vagrant
 #
 
 %post --log=/root/vagrant-install.log
@@ -78,7 +78,7 @@ chown -R vagrant:vagrant /home/vagrant/.ssh
 %end
 
 #
-#Â Install EPEL and Ansible extra packages (sshpass and redis)
+# Install EPEL and Ansible extra packages (sshpass and redis)
 #
 
 %post --log=/root/epel-install.log
@@ -87,6 +87,16 @@ chown -R vagrant:vagrant /home/vagrant/.ssh
 
 /usr/bin/yum -y install sshpass
 /usr/bin/yum -y install redis
+
+%end
+
+#
+# Update all packages
+#
+
+%post --log=/root/yum-update.log
+
+/usr/bin/yum -y update
 
 %end
 
