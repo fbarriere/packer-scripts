@@ -132,6 +132,7 @@ gd-devel
 libtiff-devel
 libungif-devel
 
+libffi-devel
 
 %end
 
