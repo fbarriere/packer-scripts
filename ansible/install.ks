@@ -14,7 +14,7 @@ keyboard --vckeymap=fr --xlayouts='fr','us'
 lang en_US.UTF-8
 
 # Network information
-network  --bootproto=dhcp --device=enp0s3 --ipv6=auto --activate
+network  --bootproto=dhcp --device=enp0s3 --noipv6 --activate
 network  --hostname=localhost.localdomain
 
 firewall --disabled
@@ -91,14 +91,16 @@ chown -R vagrant:vagrant /home/vagrant/.ssh
 %end
 
 #
-# Update all packages
+# SSH config update:
+#   - Disable DNS
+#   - Disable GSSAPI
 #
 
-%post --log=/root/yum-update.log
+%post --log=/root/sshd_config.log
 
-/usr/bin/yum -y update
+/bin/mv /etc/ssh/sshd_config /etc/ssh/sshd_config.rpmsave
+/bin/cat /etc/ssh/sshd_config.rpmsave | /bin/sed -e '/UseDNS/s/.*/UseDNS no/' | /bin/sed -e '/GSSAPIAuthentication/s/.*/GSSAPIAuthentication no/' > /etc/ssh/sshd_config
 
 %end
-
 
 
