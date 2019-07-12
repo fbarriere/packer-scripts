@@ -44,6 +44,7 @@ libffi-devel
 openssl-devel
 wget
 krb5-workstation
+nfs-utils
 
 %end
 
@@ -52,7 +53,7 @@ krb5-workstation
 %end
 
 #
-# Post install: install Vagrant
+#ï¿½Post install: install Vagrant
 #
 
 %post --log=/root/vagrant-install.log
@@ -78,7 +79,7 @@ chown -R vagrant:vagrant /home/vagrant/.ssh
 %end
 
 #
-# Install EPEL and Ansible extra packages (sshpass and redis)
+#ï¿½Install EPEL and Ansible extra packages (sshpass and redis)
 #
 
 %post --log=/root/epel-install.log
