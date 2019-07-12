@@ -11,13 +11,13 @@ PYTHON_VERSION=$PYTHON_MAJOR.$PYTHON_MINOR
 
 PYTHON=/opt/python$PYTHON_VERSION
 
-VERSIONS="2.4.6-1 2.5.15 2.6.17 2.7.11 2.8.1"
+VERSIONS="2.4.6.0 2.5.15 2.6.17 2.7.11 2.8.1"
 
 ANSIBLE_PREREQ="markupsafe redis junit_xml"
 ANSIBLE_EXTRAS="ansible-lint ansible-review ansible-cmdb"
 
 #
-# Python install:
+#ï¿½Python install:
 #
 
 echo "*** Installing Python $PYTHON_VERSION "
@@ -120,7 +120,7 @@ PYTHON_VERSION=$PYTHON_MAJOR.$PYTHON_MINOR
 PYTHON=/opt/python$PYTHON_MAJOR
 
 #
-# Python install:
+#ï¿½Python install:
 #
 
 echo "*** Installing Python $PYTHON_VERSION "
