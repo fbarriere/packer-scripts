@@ -118,6 +118,8 @@ gd-devel
 libtiff-devel
 libungif-devel
 redhat-lsb
+libffi-devel
+openssl-devel
 
 %end
 
@@ -154,5 +156,19 @@ chown -R vagrant:vagrant /home/vagrant/.ssh
 /usr/bin/yum -y install devtoolset-4
 
 %end
+
+#
+# SSH config update:
+#   - Disable DNS
+#   - Disable GSSAPI
+#
+
+%post --log=/root/sshd_config.log
+
+/bin/mv /etc/ssh/sshd_config /etc/ssh/sshd_config.rpmsave
+/bin/cat /etc/ssh/sshd_config.rpmsave | /bin/sed -e '/UseDNS/s/.*/UseDNS no/' | /bin/sed -e '/GSSAPIAuthentication/s/.*/GSSAPIAuthentication no/' > /etc/ssh/sshd_config
+
+%end
+
 
 
