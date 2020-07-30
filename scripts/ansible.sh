@@ -11,7 +11,7 @@ PYTHON_VERSION=$PYTHON_MAJOR.$PYTHON_MINOR
 
 PYTHON=/opt/python$PYTHON_VERSION
 
-VERSIONS="2.4.6.0 2.5.15 2.6.17 2.7.11 2.8.1"
+VERSIONS="2.6.20 2.7.18 2.8.13 2.9.11"
 
 ANSIBLE_PREREQ="markupsafe redis junit_xml"
 ANSIBLE_EXTRAS="ansible-lint ansible-review ansible-cmdb"
