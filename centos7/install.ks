@@ -118,6 +118,7 @@ gd-devel
 libtiff-devel
 libungif-devel
 redhat-lsb
+redhat-lsb-core
 libffi-devel
 openssl-devel
 
