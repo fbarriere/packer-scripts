@@ -2,7 +2,7 @@
 
 #version=DEVEL
 install
-url --url=http://mirror.centos.org/centos-6/6/os/x86_64
+url --url=http://vault.centos.org/6.10/os/x86_64
 lang en_US.UTF-8
 keyboard fr
 network --onboot yes --device eth0 --bootproto dhcp --ipv6 auto
@@ -13,7 +13,7 @@ selinux --disabled
 timezone --utc Europe/Paris
 bootloader --location=mbr --driveorder=sda --append="crashkernel=auto rhgb quiet"
 
-repo --name="CentOS"  --baseurl=http://mirror.centos.org/centos-6/6/os/x86_64 --cost=100
+repo --name="CentOS"  --baseurl=http://vault.centos.org/6.10/os/x86_64 --cost=100
 
 text
 skipx
@@ -141,6 +141,9 @@ libffi-devel
 date > /etc/vagrant_box_build_time
 
 sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
+
+rm -rf /etc/yum.repo.d/CentOS-Base.repo
+curl https://www.getpagespeed.com/files/centos6-eol.repo --output /etc/yum.repos.d/CentOS-Base.repo
 
 /usr/bin/yum -y update
 /usr/bin/yum -y install sudo
