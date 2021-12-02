@@ -61,12 +61,14 @@
       "override": {
         "default": {
           "scripts": [
+            "scripts/compilation_packages.sh",
             "scripts/virtualbox.sh",
             "scripts/cleanup.sh"
           ]
         },
         "atlas": {
           "scripts": [
+            "scripts/compilation_packages.sh",
             "scripts/virtualbox.sh",
             "scripts/cleanup.sh"
           ]
