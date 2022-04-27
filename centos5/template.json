@@ -86,7 +86,7 @@
       "override": {
         "default": {
           "scripts": [
-            "scripts/epel.sh",
+            "scripts/centos5-vault.sh",
             "scripts/compilation_packages.sh",
             "scripts/virtualbox.sh",
             "scripts/svn_install.sh",
