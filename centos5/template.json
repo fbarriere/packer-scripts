@@ -1,99 +1,128 @@
 {
-  "variables": {
-    "buildversion": "test",
-    "cloud_token": "notoken",
-    "changes_list": "No change",
-    "base_path": ".",
-    "release_base_url": "."
-  },
   "builders": [
     {
-      "type": "virtualbox-iso",
-      "name": "default",
+      "boot_command": "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos5/install.ks<enter>",
+      "disk_size": 80000,
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
       "guest_os_type": "RedHat_64",
       "headless": true,
-      "iso_url": "http://mirror.nsc.liu.se/centos-store/5.11/isos/x86_64/CentOS-5.11-x86_64-netinstall.iso",
-      "iso_checksum": "f2087f9af0d50df05144a1f0d1c5b404",
-      "iso_checksum_type": "md5",
-      "disk_size": 80000,
       "http_directory": ".",
-      "boot_command": "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos5/install.ks<enter>",
-      "ssh_username": "vagrant",
+      "iso_checksum": "md5:f2087f9af0d50df05144a1f0d1c5b404",
+      "iso_url": "http://mirror.nsc.liu.se/centos-store/5.11/isos/x86_64/CentOS-5.11-x86_64-netinstall.iso",
+      "name": "default",
+      "shutdown_command": "echo '/sbin/halt -h -p' > /tmp/shutdown.sh; echo 'vagrant'|sudo -S sh '/tmp/shutdown.sh'",
       "ssh_password": "vagrant",
       "ssh_port": 22,
-      "ssh_wait_timeout": "14400s",
-      "shutdown_command": "echo '/sbin/halt -h -p' > /tmp/shutdown.sh; echo 'vagrant'|sudo -S sh '/tmp/shutdown.sh'",
-      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
-      "virtualbox_version_file": ".vbox_version",
+      "ssh_timeout": "14400s",
+      "ssh_username": "vagrant",
+      "type": "virtualbox-iso",
       "vboxmanage": [
-        [ "modifyvm", "{{.Name}}", "--memory", "1024" ],
-        [ "modifyvm", "{{.Name}}", "--cpus", "2" ]
-      ]
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "1024"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "2"
+        ]
+      ],
+      "virtualbox_version_file": ".vbox_version"
     },
     {
-      "type": "virtualbox-iso",
-      "name": "atlas",
+      "boot_command": "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos5/install.ks<enter>",
+      "disk_size": 80000,
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
       "guest_os_type": "RedHat_64",
       "headless": true,
-      "iso_url": "http://mirror.nsc.liu.se/centos-store/5.11/isos/x86_64/CentOS-5.11-x86_64-netinstall.iso",
-      "iso_checksum": "f2087f9af0d50df05144a1f0d1c5b404",
-      "iso_checksum_type": "md5",
-      "disk_size": 80000,
       "http_directory": ".",
-      "boot_command": "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos5/install.ks<enter>",
-      "ssh_username": "vagrant",
+      "iso_checksum": "md5:f2087f9af0d50df05144a1f0d1c5b404",
+      "iso_url": "http://mirror.nsc.liu.se/centos-store/5.11/isos/x86_64/CentOS-5.11-x86_64-netinstall.iso",
+      "name": "atlas",
+      "shutdown_command": "echo '/sbin/halt -h -p' > /tmp/shutdown.sh; echo 'vagrant'|sudo -S sh '/tmp/shutdown.sh'",
       "ssh_password": "vagrant",
       "ssh_port": 22,
-      "ssh_wait_timeout": "14400s",
-      "shutdown_command": "echo '/sbin/halt -h -p' > /tmp/shutdown.sh; echo 'vagrant'|sudo -S sh '/tmp/shutdown.sh'",
-      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
-      "virtualbox_version_file": ".vbox_version",
+      "ssh_timeout": "14400s",
+      "ssh_username": "vagrant",
+      "type": "virtualbox-iso",
       "vboxmanage": [
-        [ "modifyvm", "{{.Name}}", "--memory", "1024" ],
-        [ "modifyvm", "{{.Name}}", "--cpus", "2" ]
-      ]
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "1024"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "2"
+        ]
+      ],
+      "virtualbox_version_file": ".vbox_version"
     }
+  ],
+  "post-processors": [
+    [
+      {
+        "output": "{{ user `base_path` }}/compile-centos5_{{ user `buildversion` }}.box",
+        "type": "vagrant"
+      },
+      {
+        "access_token": "{{user `cloud_token`}}",
+        "box_download_url": "{{ user `release_base_url` }}/compile-centos5_{{ user `buildversion` }}.box",
+        "box_tag": "fbarriere/compile-centos-5",
+        "only": [
+          "atlas"
+        ],
+        "type": "vagrant-cloud",
+        "version": "{{user `buildversion`}}",
+        "version_description": "{{ user `changes_list` }}"
+      }
+    ]
   ],
   "provisioners": [
     {
-        "type": "file",
-        "source": "files/CollabNetSubversion-client-1.7.19-1.x86_64.rpm",
-        "destination": "/tmp/CollabNetSubversion-client-1.7.19-1.x86_64.rpm"
+      "destination": "/tmp/CollabNetSubversion-client-1.7.19-1.x86_64.rpm",
+      "source": "files/CollabNetSubversion-client-1.7.19-1.x86_64.rpm",
+      "type": "file"
     },
     {
-        "type": "file",
-        "source": "files/CollabNetSubversion-client-1.8.18-1.x86_64.rpm",
-        "destination": "/tmp/CollabNetSubversion-client-1.8.18-1.x86_64.rpm"
+      "destination": "/tmp/CollabNetSubversion-client-1.8.18-1.x86_64.rpm",
+      "source": "files/CollabNetSubversion-client-1.8.18-1.x86_64.rpm",
+      "type": "file"
     },
     {
-        "type": "file",
-        "source": "files/CollabNetSubversion-client-1.9.6-1.x86_64.rpm",
-        "destination": "/tmp/CollabNetSubversion-client-1.9.6-1.x86_64.rpm"
+      "destination": "/tmp/CollabNetSubversion-client-1.9.6-1.x86_64.rpm",
+      "source": "files/CollabNetSubversion-client-1.9.6-1.x86_64.rpm",
+      "type": "file"
     },
     {
-        "type": "file",
-        "source": "files/doxygen-1.7.6-rhel5.tar.gz",
-        "destination": "/tmp/doxygen-1.7.6-rhel5.tar.gz"
+      "destination": "/tmp/doxygen-1.7.6-rhel5.tar.gz",
+      "source": "files/doxygen-1.7.6-rhel5.tar.gz",
+      "type": "file"
     },
     {
-        "type": "file",
-        "source": "files/svn",
-        "destination": "/tmp/svn"
+      "destination": "/tmp/svn",
+      "source": "files/svn",
+      "type": "file"
     },
     {
-      "type": "shell",
+      "destination": "/tmp",
+      "source": "files/centos5-fixes/",
+      "type": "file"
+    },
+    {
+      "destination": "/tmp",
+      "source": "scripts/",
+      "type": "file"
+    },
+    {
       "execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'",
       "override": {
-        "default": {
-          "scripts": [
-            "scripts/centos5-vault.sh",
-            "scripts/compilation_packages.sh",
-            "scripts/virtualbox.sh",
-            "scripts/svn_install.sh",
-            "scripts/doxygen.sh",
-            "scripts/cleanup.sh"
-          ]
-        },
         "atlas": {
           "scripts": [
             "scripts/epel.sh",
@@ -103,26 +132,24 @@
             "scripts/doxygen.sh",
             "scripts/cleanup.sh"
           ]
-        }        
-      }
+        },
+        "default": {
+          "scripts": [
+            "scripts/virtualbox.sh"
+          ],
+          "remote_folder": "/tmp",
+          "skip_clean": "true"
+        }
+      },
+      "type": "shell"
     }
   ],
-  "post-processors": [
-  [
-    {
-      "type": "vagrant",
-      "output": "{{ user `base_path` }}/compile-centos5_{{ user `buildversion` }}.box"
-    },
-    {
-      "type": "vagrant-cloud",
-      "only": ["atlas"],
-      "box_tag": "fbarriere/compile-centos-5",
-      "access_token": "{{user `cloud_token`}}",
-      "version": "{{user `buildversion`}}",
-      "version_description": "{{ user `changes_list` }}",
-      "box_download_url": "{{ user `release_base_url` }}/compile-centos5_{{ user `buildversion` }}.box"
-    }
-  ]
-  ]
+  "variables": {
+    "base_path": ".",
+    "buildversion": "test",
+    "changes_list": "No change",
+    "cloud_token": "notoken",
+    "release_base_url": "."
+  }
 }
 
