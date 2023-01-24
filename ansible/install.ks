@@ -2,7 +2,7 @@
 # System authorization information
 auth --enableshadow --passalgo=sha512
 # Use network installation
-url --url="http://centos.crazyfrogs.org/7/os/x86_64"
+url --url="http://mirrors.standaloneinstaller.com/centos/7.9.2009/os/x86_64/"
 # Use graphical install
 # graphical
 # Run the Setup Agent on first boot
