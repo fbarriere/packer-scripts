@@ -2,13 +2,14 @@
 
 LOGDIR=/root
 
-LOGFILE=${LOGDIR}/centos5vault.log
+LOGFILE=${LOGDIR}/centos5-repos.log
 
 echo "**** Backing up original repos files"  | /usr/bin/tee -a ${LOGFILE}  2>&1
 
 for REPO in `ls /etc/yum.repos.d/*.repo`
 do
-    mv ${REPO} ${REPO}.bak     | /usr/bin/tee -a ${LOGFILE}  2>&1
+    echo "Saving ${REPO} as ${REPO}.bak"     | /usr/bin/tee -a ${LOGFILE}  2>&1
+    mv ${REPO} ${REPO}.bak                   | /usr/bin/tee -a ${LOGFILE}  2>&1
 done
 
 echo "**** Creating vault repo file"         | /usr/bin/tee -a ${LOGFILE}  2>&1
@@ -28,40 +29,39 @@ echo "**** Creating vault repo file"         | /usr/bin/tee -a ${LOGFILE}  2>&1
 
 [base]
 name=CentOS-\$releasever - Base
-#mirrorlist=http://mirrorlist.centos.org/?release=\$releasever&arch=\$basearch&repo=os
-baseurl=http://vault.centos.org/5.11/os/\$basearch
+baseurl=https://vault.centos.org/5.11/os/\$basearch
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-5
+enabled=1
 
 #released updates 
 [updates]
 name=CentOS-\$releasever - Updates
-#mirrorlist=http://mirrorlist.centos.org/?release=\$releasever&arch=\$basearch&repo=updates
-baseurl=http://vault.centos.org/5.11/updates/\$basearch
+baseurl=https://vault.centos.org/5.11/updates/\$basearch
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-5
+enabled=1
 
 #packages used/produced in the build but not released
 [addons]
 name=CentOS-\$releasever - Addons
-#mirrorlist=http://mirrorlist.centos.org/?release=\$releasever&arch=\$basearch&repo=addons
-baseurl=http://vault.centos.org/5.11/addons/\$basearch
+baseurl=https://vault.centos.org/5.11/addons/\$basearch
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-5
+enabled=1
 
 #additional packages that may be useful
 [extras]
 name=CentOS-\$releasever - Extras
-#mirrorlist=http://mirrorlist.centos.org/?release=\$releasever&arch=\$basearch&repo=extras
-baseurl=http://vault.centos.org/5.11/extras/\$basearch
+baseurl=https://vault.centos.org/5.11/extras/\$basearch
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-5
+enabled=1
 
 #additional packages that extend functionality of existing packages
 [centosplus]
 name=CentOS-\$releasever - Plus
-#mirrorlist=http://mirrorlist.centos.org/?release=\$releasever&arch=\$basearch&repo=centosplus
-baseurl=http://vault.centos.org/5.11/centosplus/\$basearch
+baseurl=hhttps://vault.centos.org/5.11/centosplus/\$basearch
 gpgcheck=1
 enabled=0
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-5
@@ -69,8 +69,7 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-5
 #contrib - packages by Centos Users
 [contrib]
 name=CentOS-\$releasever - Contrib
-#mirrorlist=http://mirrorlist.centos.org/?release=\$releasever&arch=\$basearch&repo=contrib
-baseurl=http://vault.centos.org/5.11/contrib/\$basearch
+baseurl=https://vault.centos.org/5.11/contrib/\$basearch
 gpgcheck=1
 enabled=0
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-5
